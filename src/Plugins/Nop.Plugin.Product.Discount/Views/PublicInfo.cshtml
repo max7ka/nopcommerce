@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "";
+}
+@model Nop.Plugin.Product.Discount.Models.ConfigurationModel
+
+
+@if (!string.IsNullOrEmpty(Model.MessageText))
+{
+<h2>
+    <span>
+        <img src="~/Plugins/Product.Discount/logo.png" alt="logo.png" class="brand-image-xl logo-xl">
+    </span>
+    <span>
+        @Html.Raw(Model.MessageText) %
+    </span>
+</h2>
+}

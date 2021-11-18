@@ -81,6 +81,7 @@
                                 @Html.Raw(Model.Author)
                             </div>
                         }
+                        @await Component.InvokeAsync("ProductDiscount")
                         @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductDetailsOverviewTop, additionalData = Model })
                         <!--product reviews-->
                         @await Html.PartialAsync("_ProductReviewOverview", Model.ProductReviewOverview)

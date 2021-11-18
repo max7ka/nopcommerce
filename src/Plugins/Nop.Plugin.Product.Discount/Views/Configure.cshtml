@@ -1,0 +1,138 @@
+﻿@model ConfigurationModel
+@{
+    Layout = null;//"_ConfigurePlugin";
+    Html.AppendScriptParts("~/lib_npm/vue/vue.min.js");
+}
+
+@using Nop.Plugin.Product.Discount.Models
+
+<!-- вариант с формой -->
+<!--form-- asp-controller="ProductDiscount" asp-action="Configure" method="post" id="ProductDiscountForm">
+    <div class="cards-group">
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="MessageText_OverrideForStore" asp-input="MessageText" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="MessageText" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="MessageText" />
+                        <span asp-validation-for="MessageText"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-9 offset-md-3">
+                        <button type="submit" id="ProductDiscountSave" name="save" class="btn btn-primary">@T("Admin.Common.Save")</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</!--form-->
+
+<div>
+    <div class="cards-group">
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="MessageText_OverrideForStore" asp-input="MessageText" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="MessageText" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="MessageText" />
+                        <span asp-validation-for="MessageText"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-9 offset-md-3">
+                        <div id="ProductDiscountSave" class="btn btn-primary">@T("Admin.Common.Save")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //console.log('start');
+    $(document).ready(function () {
+        //console.log('ready');
+        $('#ProductDiscountSave').click(function () {
+            //console.log('click');
+
+            var messageText = $("#@Html.IdFor(model => model.MessageText)").val();;
+
+            var postData = {
+                MessageText: messageText,
+            };
+
+            //console.log(postData);
+            addAntiForgeryToken(postData);
+            //console.log(postData);
+
+            var url = "@(Url.Action("Configure", "ProductDiscount"))";
+            console.log(url);
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.Action("Configure", "ProductDiscount"))",
+                data: postData,
+                success: function ()
+                {
+                    console.log('Success');
+                },
+                error: function ()
+                {
+                    console.log('Error');
+                }
+            });
+
+        });
+    })
+</script>
+
+
+<!-- vue js test -->
+@*<div id="vueApp">
+    <div class="cards-group">
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="form-group row" v-html="text"></div>
+                <div class="form-group row" v-for="item in items" :key="item.id">
+                    <div v-html="item.id" class="col-md-3"></div>
+                    <input class="form-control text-box valid col-md-9" type="text" v-model="item.text">
+                </div>
+                <div class="form-group row">
+                    <div class="btn btn-outline-info" v-on:click="AddNewItem">Add</div>
+                </div>
+                <div class="form-group row">
+                    <div v-html="items">Add</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#vueApp',
+        data: {
+            text: "Test Vue.js",
+            i: 1,
+            items: [{text:"item1",id:1}]
+        },
+        methods: {
+            AddNewItem: function () {
+                console.log("AddNewItem");
+                this.i = this.i + 1;
+                this.items = this.items.concat({ text: "item"+this.i, id: this.i });
+            }
+        },
+    });
+</script>*@
+
+
+
