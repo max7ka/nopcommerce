@@ -8,7 +8,6 @@ using Nop.Core.Domain.Catalog;
 
 namespace Nop.Data.Migrations
 {
-    /*
     [NopMigration("2021/11/13 19:40:28:2551770", "Product. Add Author")]
     public class AddAuthor : AutoReversingMigration
     {
@@ -19,5 +18,5 @@ namespace Nop.Data.Migrations
             .AsString(255)
             .Nullable();
         }
-    }*/
+    }
 }
