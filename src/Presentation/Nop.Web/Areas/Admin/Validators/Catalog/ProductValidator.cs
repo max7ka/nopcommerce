@@ -25,6 +25,8 @@ namespace Nop.Web.Areas.Admin.Validators.Catalog
                 .WithMessageAwait(localizationService.GetResourceAsync("Admin.Catalog.Products.Fields.RentalPriceLength.ShouldBeGreaterThanZero"))
                 .When(x => x.IsRental);
 
+            RuleFor(m => m.Author).Length(0, 255);
+
             SetDatabaseValidationRules<Product>(dataProvider);
         }
     }
